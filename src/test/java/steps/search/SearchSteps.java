@@ -5,55 +5,71 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.After;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import page.SearchPage;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.concurrent.TimeUnit;
-
-public class SearchSteps extends BaseTest {
+public class SearchSteps extends BaseTest{
+    WebDriver driver;
+    SearchPage searchPage = new SearchPage(driver);
 
     static final String SITE = "https://www.google.com/";
 
-    @Given("The User Open the Amazon Brasil Site")
+    @Given("the user open the Amazon Brasil site")
     public void theUserOpenTheAmazonBrasilSite() {
         //configuration
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        searchPage.setChromeDriver();
+        searchPage.navigateToSite(SITE);
 
         //search site
-        driver.navigate().to(SITE);
-        driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")).sendKeys("Amazon Brasil");
-        driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")).sendKeys(Keys.ENTER);
-        driver.findElement(By.xpath("//*[@id=\"rso\"]/div[1]/div/div/div/div/div/div/div[1]/a")).click();
+        searchPage.setInputSite("Amazon Brasil");
+        searchPage.enterAmazonSite();
+        searchPage.clickAmazonSite();
     }
 
-    @When("Search For Iphone Using The Search Bar")
-    public void searchForIphoneUsingTheSearchBar() {
-        driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]")).sendKeys("Iphone");
-        driver.findElement(By.xpath("//*[@id=\"nav-search-submit-button\"]")).click();
+    @When("^search for (.*) using the search bar")
+    public void searchForIphoneUsingTheSearchBar(String product) {
+        searchPage.searchProduct(product);
+        searchPage.setClickProduct();
     }
 
-    @And("Count The Total List Of Found Products")
+    @And("count the total list of found products")
     public void countTheTotalListOfFoundProducts() {
+        WebElement results = searchPage.setFindList();
+        List<WebElement> resultsList = results.findElements(By.tagName("li"));
+
+        List<String> lista = new ArrayList<>();
+        for (WebElement li : resultsList) {
+                lista.add(li.getText());
+        }
+        System.out.println("List of found products " + lista.get(lista.size()-2));
+    }
+
+    @And("count the total of Iphone items found")
+    public void countTheTotalOfIphoneItemsFound(){
+        WebElement results = searchPage.setFindList();
+        List<WebElement> resultsList = results.findElements(By.tagName("li"));
+
+        for(int i=1; i<resultsList.size(); i++) {
+
+//                    resultsList.get(i).click();
+
+        }
+
 
     }
 
-    @And("Count The Total Of Iphone Items Found")
-    public void countTheTotalOfIphoneItemsFound() {
-
-    }
-
-    @Then("Make Sure At Least {int}% Of Items Found are Iphone")
-    public void makeSureAtLeastOfItemsFoundAreIphone(Integer int1) throws InterruptedException {
+    @Then("^make sure at least (.*)% of items found are Iphone")
+    public void makeSureAtLeastOfItemsFoundAreIphone(int valor) throws InterruptedException {
 
         Thread.sleep(2000);
-
-        bye();
+        searchPage.bye();
     }
 
 

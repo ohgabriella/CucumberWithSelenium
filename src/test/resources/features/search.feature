@@ -8,16 +8,17 @@ Feature: Search website
   Navigate to "www.amazon.com.br" Through The Search Page
 
   Scenario: 80% Of Shown Products Should Be Exclusively The Searched Product
-    Given The User Open the Amazon Brasil Site
-    When Search For Iphone Using The Search Bar
-    And Count The Total List Of Found Products
-    And Count The Total Of Iphone Items Found
-    Then Make Sure At Least 80% Of Items Found are Iphone
+    Given the user open the Amazon Brasil site
+    When search for Iphone using the search bar
+    And count the total list of found products
+    And count the total of Iphone items found
+    Then make sure at least 80% of items found are Iphone
 
-  Scenario: The Higher Price In The First Page Can't Be Greater Than U$2000
-
-  Scenario: Products Different Than The Searched Product Should Be Cheaper Than The
-  Searched Product
+#  Scenario: The Higher Price In The First Page Can't Be Greater Than U$2000
+#    Given the user open the Amazon Brasil site
+#
+#  Scenario: Products Different Than The Searched Product Should Be Cheaper Than The
+#  Searched Product
 
 
 
