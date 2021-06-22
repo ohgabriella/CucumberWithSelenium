@@ -56,13 +56,9 @@ public class SearchSteps extends BaseTest{
 
     @And("count the total of Iphone items found")
     public void countTheTotalOfIphoneItemsFound() throws InterruptedException {
-        WebElement results = searchPage.setFindList();
-        List<WebElement> resultsList = results.findElements(By.tagName("li"));
-
-        //here I try to click in all the pages until the last to return the total iphone found
-        for(int i=2; i<resultsList.size(); i++) {
-            //resultsList.get(i).click();
-        }
+        //search the product
+       searchPage.clickRadioApple();
+       totalQuantity = searchPage.getQuantityProduct().substring(8,11);
 
     }
 
@@ -70,11 +66,12 @@ public class SearchSteps extends BaseTest{
     public void makeSureAtLeastOfItemsFoundAreIphone(double valor) {
         //here I did some validations
 
-        searchPage.clickRadioApple();
-        String quantity = searchPage.getQuantityProduct().substring(8,11);
+        searchPage.getSmartphone();
+        quantity = searchPage.getQuantityProduct().substring(8,11);
+        System.out.println(quantity);
 
-        //here I put a total fake 500 Iphone found
-        double calculo = (Double.valueOf(quantity)/500) * 100;
+        //here I put a total Iphone found
+        double calculo = (Double.valueOf(quantity)/Integer.parseInt(totalQuantity)) * 100;
 
         if(calculo >= valor) {
             Assert.assertTrue("The total Iphone items found is bigger than 80%", calculo>=valor);
@@ -91,13 +88,14 @@ public class SearchSteps extends BaseTest{
         //search the product
         searchPage.searchProduct(product);
         searchPage.setClickProduct();
+        searchPage.getSmartphone();
         searchPage.clickRadioApple();
 
         //select the price
         searchPage.selectSpanHighestPrice();
         searchPage.selectHighestPrice();
 
-        price = searchPage.getPrice();
+        price = searchPage.getPrice().replace(".", "");
 
         System.out.println(price);
     }
@@ -105,11 +103,22 @@ public class SearchSteps extends BaseTest{
     @When("convert its value to USD")
     public void convertItsValueToUSD() {
         baseApi.requestGet();
-        System.out.println(baseApi.response.prettyPrint());
+
+        real = baseApi.response.path("rates.BRL").toString();
+        dolar = baseApi.response.path("rates.USD").toString();
+
+        convertRealEuro = Double.parseDouble(price) / Double.parseDouble(real);
+        convertEuroDolar = convertRealEuro * Double.parseDouble(dolar);
+
+        System.out.println(convertEuroDolar);
     }
 
-    @Then("make sure the converted value is not greater than US2000")
-    public void makeSureTheConvertedValueIsNotGreaterThanUS2000() {
+    @Then("^make sure the converted value is not greater than US (.*)")
+    public void makeSureTheConvertedValueIsNotGreaterThanUS2000(double valor) {
+        if(convertEuroDolar <= valor) {
+            Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
+            System.out.println("The converted value is not greater than US" + convertEuroDolar);
+        }
         searchPage.bye();
     }
 

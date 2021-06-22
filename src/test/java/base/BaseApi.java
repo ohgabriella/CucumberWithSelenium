@@ -19,7 +19,7 @@ public class BaseApi {
                 .baseUri(URL_API)
                 .when()
                 .queryParam("access_key", "1ec264523cf4775a5014895ab154372e")
-                .queryParam("symbols", "USD, BRL")
+                .queryParam("symbols", "USD, BRL, EUR")
                 .get("latest")
                 .then()
                 .statusCode(200)

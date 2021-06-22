@@ -25,6 +25,7 @@ public class SearchPage {
     By selectPrice = By.id("a-autoid-0-announce");
     By price = By.xpath("//*[@id=\"a-popover-2\"]/div/div/ul/li[3]");
     By higuestPrice = By.xpath("//*[@id=\"search\"]/div[1]/div/div[1]/div/span[3]/div[2]/div[1]/div/span/div/div/div[4]/div/a/span/span[2]/span[2]");
+    By getSmartphone = By.xpath("//*[@id=\"n/16243890011\"]/span");
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
@@ -72,6 +73,10 @@ public class SearchPage {
 
     public String getQuantityProduct() {
         return driver.findElement(quantityProduct).getText();
+    }
+
+    public void getSmartphone() {
+       driver.findElement(getSmartphone).click();
     }
 
     public void selectDropDown(String value) {
