@@ -6,6 +6,8 @@ import org.junit.BeforeClass;
 
 public class BaseTest {
 
+    protected String price;
+
     @BeforeClass
     public static void init() {
         System.out.println("Início dos testes");
