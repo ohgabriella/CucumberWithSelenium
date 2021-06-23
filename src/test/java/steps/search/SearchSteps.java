@@ -2,6 +2,7 @@ package steps.search;
 
 import base.BaseApi;
 import base.BaseTest;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,10 +23,14 @@ public class SearchSteps extends BaseTest{
 
     static final String SITE = "https://www.google.com/";
 
+    @Before
+    public void init() {
+        searchPage.setChromeDriver();
+    }
+
     @Given("the user open the Amazon Brasil site")
     public void theUserOpenTheAmazonBrasilSite() {
         //configuration
-        searchPage.setChromeDriver();
         searchPage.navigateToSite(SITE);
 
         //search site

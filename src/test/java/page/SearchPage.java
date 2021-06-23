@@ -21,7 +21,6 @@ public class SearchPage {
     By findList = By.xpath("//*[@id=\"search\"]/div[1]/div/div[1]/div/span[3]/div[2]/div[61]/span/div/div");
     By clickApple = By.xpath("//*[@id=\"p_89/Apple\"]/span/a/span");
     By quantityProduct = By.xpath("//*[@id=\"search\"]/span/div/span/h1/div/div[1]/div/div/span[1]");
-    By dropdownOrder = By.xpath("//*[@id=\"a-autoid-0\"]/span");
     By selectPrice = By.id("a-autoid-0-announce");
     By price = By.xpath("//*[@id=\"a-popover-2\"]/div/div/ul/li[3]");
     By higuestPrice = By.xpath("//*[@id=\"search\"]/div[1]/div/div[1]/div/span[3]/div[2]/div[1]/div/span/div/div/div[4]/div/a/span/span[2]/span[2]");
@@ -79,11 +78,6 @@ public class SearchPage {
        driver.findElement(getSmartphone).click();
     }
 
-    public void selectDropDown(String value) {
-        Select dropdown = new Select(driver.findElement(dropdownOrder));
-        dropdown.selectByVisibleText(value);
-    }
-
     public void selectSpanHighestPrice() {
         driver.findElement(selectPrice).click();
     }
@@ -94,11 +88,6 @@ public class SearchPage {
 
     public void selectHighestPrice() {
         driver.findElement(price).click();
-
-    }
-
-    public WebDriverWait waitPageLoad() {
-        return new WebDriverWait(driver, 1000);
     }
 
     public void bye() {
