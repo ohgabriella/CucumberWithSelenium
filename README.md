@@ -69,5 +69,8 @@
    Another alternative is to use Ctrl+Shift+F10 inside the class.
 
 
-## References
+## Report
+
+   The test report is present in the target folder generated after the test is completed. 
+   It's called cucumber-pretty.html.
    
