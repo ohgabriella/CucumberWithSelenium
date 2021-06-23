@@ -4,13 +4,10 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.response.Response;
 
-
 public class BaseApi {
-
 
     private static String URL_API = "http://api.exchangeratesapi.io/v1/";
     public Response response;
-
 
     public void requestGet() {
         response = RestAssured

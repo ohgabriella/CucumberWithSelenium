@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchSteps extends BaseTest{
+
     WebDriver driver;
     SearchPage searchPage = new SearchPage(driver);
     BaseApi baseApi = new BaseApi();
@@ -64,7 +65,6 @@ public class SearchSteps extends BaseTest{
     @Then("^make sure at least (.*)% of items found are Iphone")
     public void makeSureAtLeastOfItemsFoundAreIphone(double valor) {
         //here I did some validations
-
         searchPage.getSmartphone();
         quantity = searchPage.getQuantityProduct().substring(8,11);
         System.out.println(quantity);
@@ -101,6 +101,7 @@ public class SearchSteps extends BaseTest{
 
     @When("convert its value to USD")
     public void convertItsValueToUSD() {
+        //here I call the api methods
         baseApi.requestGet();
 
         real = baseApi.response.path("rates.BRL").toString();
