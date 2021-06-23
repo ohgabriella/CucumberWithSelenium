@@ -2,6 +2,7 @@ package steps.search;
 
 import base.BaseApi;
 import base.BaseTest;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -78,12 +79,8 @@ public class SearchSteps extends BaseTest {
         //here I put a total Iphone found
         double calculo = (Double.valueOf(quantity) / Integer.parseInt(totalQuantity)) * 100;
 
-        if (calculo >= valor) {
-            Assert.assertTrue("The total Iphone items found is bigger than 80%", calculo >= valor);
-            System.out.println("The total Iphone items found is about " + calculo + "%");
-        }
-
-        searchPage.bye();
+        Assert.assertTrue("The total Iphone items found is bigger than 80%", calculo >= valor);
+        System.out.println("The total Iphone items found is about " + calculo + "%");
     }
 
     //---------------------- Second Scenario
@@ -122,12 +119,8 @@ public class SearchSteps extends BaseTest {
     @Then("^make sure the converted value is not greater than US (.*)")
     public void makeSureTheConvertedValueIsNotGreaterThanUS2000(double valor) {
         //did some validations
-        if (convertEuroDolar <= valor) {
-            Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
-            System.out.println("The converted value is not greater than US" + convertEuroDolar);
-        }
-
-        searchPage.bye();
+        Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
+        System.out.println("The converted value is not greater than US" + convertEuroDolar);
     }
 
     //---------------------- Third Scenario
@@ -154,7 +147,10 @@ public class SearchSteps extends BaseTest {
     public void makeSureAllFoundProductsAreCheaperThanTheCheapestIphone() {
         //some validations
         Assert.assertTrue("Xiaomi is cheaper than cheapest Iphone", Integer.parseInt(price) > Integer.parseInt(priceXiaomi));
+    }
 
+    @After
+    public void end() {
         searchPage.bye();
     }
 }
