@@ -12,10 +12,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import page.SearchPage;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchSteps extends BaseTest{
+public class SearchSteps extends BaseTest {
 
     WebDriver driver;
     SearchPage searchPage = new SearchPage(driver);
@@ -54,16 +55,16 @@ public class SearchSteps extends BaseTest{
         //list the product and put in a List
         List<String> lista = new ArrayList<>();
         for (WebElement li : resultsList) {
-                lista.add(li.getText());
+            lista.add(li.getText());
         }
-        System.out.println("List of found products " + lista.get(lista.size()-2));
+        System.out.println("List of found products " + lista.get(lista.size() - 2));
     }
 
     @And("count the total of Iphone items found")
     public void countTheTotalOfIphoneItemsFound() throws InterruptedException {
         //search the product
-       searchPage.clickRadioApple();
-       totalQuantity = searchPage.getQuantityProduct().substring(8,11);
+        searchPage.clickRadioApple();
+        totalQuantity = searchPage.getQuantityProduct().substring(8, 11);
 
     }
 
@@ -71,14 +72,14 @@ public class SearchSteps extends BaseTest{
     public void makeSureAtLeastOfItemsFoundAreIphone(double valor) {
         //here I did some validations
         searchPage.getSmartphone();
-        quantity = searchPage.getQuantityProduct().substring(8,11);
+        quantity = searchPage.getQuantityProduct().substring(8, 11);
         System.out.println(quantity);
 
         //here I put a total Iphone found
-        double calculo = (Double.valueOf(quantity)/Integer.parseInt(totalQuantity)) * 100;
+        double calculo = (Double.valueOf(quantity) / Integer.parseInt(totalQuantity)) * 100;
 
-        if(calculo >= valor) {
-            Assert.assertTrue("The total Iphone items found is bigger than 80%", calculo>=valor);
+        if (calculo >= valor) {
+            Assert.assertTrue("The total Iphone items found is bigger than 80%", calculo >= valor);
             System.out.println("The total Iphone items found is about " + calculo + "%");
         }
 
@@ -120,8 +121,8 @@ public class SearchSteps extends BaseTest{
 
     @Then("^make sure the converted value is not greater than US (.*)")
     public void makeSureTheConvertedValueIsNotGreaterThanUS2000(double valor) {
-        //did soma validations
-        if(convertEuroDolar <= valor) {
+        //did some validations
+        if (convertEuroDolar <= valor) {
             Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
             System.out.println("The converted value is not greater than US" + convertEuroDolar);
         }
@@ -141,7 +142,7 @@ public class SearchSteps extends BaseTest{
         searchPage.selectSpanLowestPrice();
         searchPage.inputSpecification();
         price = searchPage.getPrice().replace(".", "");
-        
+
         Thread.sleep(2000);
         searchPage.clickRadioApple();
         searchPage.clickRadioXiaomi();
@@ -150,6 +151,7 @@ public class SearchSteps extends BaseTest{
 
     @Then("make sure all found products are cheaper than the cheapest Iphone")
     public void makeSureAllFoundProductsAreCheaperThanTheCheapestIphone() {
+        //some validations
         Assert.assertTrue("Xiaomi is cheaper than cheapest Iphone", Integer.parseInt(price) > Integer.parseInt(priceXiaomi));
     }
 }
