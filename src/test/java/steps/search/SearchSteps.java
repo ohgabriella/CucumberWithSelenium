@@ -120,6 +120,7 @@ public class SearchSteps extends BaseTest{
 
     @Then("^make sure the converted value is not greater than US (.*)")
     public void makeSureTheConvertedValueIsNotGreaterThanUS2000(double valor) {
+        //did soma validations
         if(convertEuroDolar <= valor) {
             Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
             System.out.println("The converted value is not greater than US" + convertEuroDolar);
@@ -127,4 +128,28 @@ public class SearchSteps extends BaseTest{
         searchPage.bye();
     }
 
+    //---------------------- Third Scenario
+
+    @When("find products which are not Iphone")
+    public void findProductsWhichAreNotIphone() throws InterruptedException {
+        //search the product
+        searchPage.getSmartphone();
+        searchPage.clickRadioApple();
+
+        //select the price
+        searchPage.selectSpanHighestPrice();
+        searchPage.selectSpanLowestPrice();
+        searchPage.inputSpecification();
+        price = searchPage.getPrice().replace(".", "");
+        
+        Thread.sleep(2000);
+        searchPage.clickRadioApple();
+        searchPage.clickRadioXiaomi();
+        priceXiaomi = searchPage.getPrice().replace(".", "");
+    }
+
+    @Then("make sure all found products are cheaper than the cheapest Iphone")
+    public void makeSureAllFoundProductsAreCheaperThanTheCheapestIphone() {
+        Assert.assertTrue("Xiaomi is cheaper than cheapest Iphone", Integer.parseInt(price) > Integer.parseInt(priceXiaomi));
+    }
 }

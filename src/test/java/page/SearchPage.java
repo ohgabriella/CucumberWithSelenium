@@ -22,9 +22,12 @@ public class SearchPage {
     By clickApple = By.xpath("//*[@id=\"p_89/Apple\"]/span/a/span");
     By quantityProduct = By.xpath("//*[@id=\"search\"]/span/div/span/h1/div/div[1]/div/div/span[1]");
     By selectPrice = By.id("a-autoid-0-announce");
+    By selectLowestPrice = By.id("s-result-sort-select_1");
     By price = By.xpath("//*[@id=\"a-popover-2\"]/div/div/ul/li[3]");
     By higuestPrice = By.xpath("//*[@id=\"search\"]/div[1]/div/div[1]/div/span[3]/div[2]/div[1]/div/span/div/div/div[4]/div/a/span/span[2]/span[2]");
     By getSmartphone = By.xpath("//*[@id=\"n/16243890011\"]/span");
+    By clickXiaomi = By.xpath("//*[@id=\"p_89/Xiaomi\"]/span/a/div/label/i");
+    By inputSpecification = By.xpath("//*[@id=\"p_n_feature_four_browse-bin/16244681011\"]/span/a/div/label/i");
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
@@ -82,12 +85,24 @@ public class SearchPage {
         driver.findElement(selectPrice).click();
     }
 
+    public void selectSpanLowestPrice() {
+        driver.findElement(selectLowestPrice).click();
+    }
+
     public String getPrice() {
         return driver.findElement(higuestPrice).getText();
     }
 
     public void selectHighestPrice() {
         driver.findElement(price).click();
+    }
+
+    public void clickRadioXiaomi() {
+        driver.findElement(clickXiaomi).click();
+    }
+
+    public void inputSpecification(){
+        driver.findElement(inputSpecification).click();
     }
 
     public void bye() {
