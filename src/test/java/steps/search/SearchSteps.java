@@ -126,6 +126,7 @@ public class SearchSteps extends BaseTest {
             Assert.assertTrue("The converted value is not greater than US", convertEuroDolar <= valor);
             System.out.println("The converted value is not greater than US" + convertEuroDolar);
         }
+
         searchPage.bye();
     }
 
@@ -153,5 +154,7 @@ public class SearchSteps extends BaseTest {
     public void makeSureAllFoundProductsAreCheaperThanTheCheapestIphone() {
         //some validations
         Assert.assertTrue("Xiaomi is cheaper than cheapest Iphone", Integer.parseInt(price) > Integer.parseInt(priceXiaomi));
+
+        searchPage.bye();
     }
 }
