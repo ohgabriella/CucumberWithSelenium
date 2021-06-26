@@ -14,7 +14,7 @@
 1. create the packages for runners and steps
 1. add the configuration for run the runner correctly. It will be like this
 
-    ````java
+  ````java
    @RunWith(Cucumber.class)
       @CucumberOptions(
               tags = "@AllCenarios",
@@ -49,6 +49,7 @@
 ## Connect to the API
   To connect to the exchange rate API we use Rest Assured. The method used is requestGet(), all elements are described like this. 
   First I instanciated the RestAssured, put other informations and waited for the response was success
+  
   ```java
     RestAssured
                 .given()
