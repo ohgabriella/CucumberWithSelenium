@@ -14,7 +14,7 @@
 1. create the packages for runners and steps
 1. add the configuration for run the runner correctly. It will be like this
 
-    ```java
+    ````java
    @RunWith(Cucumber.class)
       @CucumberOptions(
               tags = "@AllCenarios",
@@ -27,7 +27,7 @@
               snippets = CAMELCASE,
               monochrome = true
       )   
-   ```
+   ````
    
  1. put the chromedriver.exe (you can find in the Selenium website) in your project - in this project I put inside the resource package
  
